@@ -1,6 +1,6 @@
-name: Admin Portal
+name: Deploy
 
-on: 
+on:
   push:
     branches:
       - main
@@ -8,18 +8,13 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Deploy Via SSH
+      - name: Deploy
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          port: 22
           script: |
             cd /home/ubuntu/node-admin-portal/
             git pull
